@@ -1,52 +1,25 @@
 const express = require("express");
-const app = express();
-const port = 5000;
 const cors = require("cors");
+const mongoose = require("mongoose");
+const dotenv = require("dotenv");
 
-app.use(cors(), express.json());
+const app = express();
+const Routes = require("./routes/route.js");
 
-const { MongoClient, ServerApiVersion } = require("mongodb");
-// const objectid = require("mongodb").ObjectId;
+const PORT = process.env.PORT || 5000;
 
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
+dotenv.config();
 
-const uri =
-  "mongodb+srv://sheba:2238522385@cluster0.9uorkol.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
-const client = new MongoClient(uri, {
-  serverApi: {
-    version: ServerApiVersion.v1,
-    strict: true,
-    deprecationErrors: true,
-  },
-});
+app.use(express.json({ limit: "10mb" }));
+app.use(cors());
 
-client.connect((err) => {
-  const usersCollection = client.db("sheba").collection("users");
+mongoose
+  .connect(process.env.MONGO_URL)
+  .then(console.log("Connected to MongoDB"))
+  .catch((err) => console.log("NOT CONNECTED TO NETWORK", err));
 
-  app.post("/user", async (req, res) => {
-    const user = req.body;
+app.use("/", Routes);
 
-    console.log(req.body);
-
-    await usersCollection.insertOne(user, (err, result) => {
-      err &&
-        res.send({
-          status: false,
-          message: "an error ,Pleasse try again later",
-        });
-      result &&
-        res.send({
-          status: true,
-          message: "User created Successfully",
-          user,
-        });
-    });
-  });
-  err ? console.log(err) : console.log("MongoDB Connected");
-});
-
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+app.listen(PORT, () => {
+  console.log(`Server started at port no. ${PORT}`);
 });
