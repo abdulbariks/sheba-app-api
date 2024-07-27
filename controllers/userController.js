@@ -15,7 +15,6 @@ const userCreate = async (req, res) => {
 const getUsers = async (req, res) => {
   try {
     let users = await User.find();
-    console.log(users);
     res.send(users);
   } catch (err) {
     res.status(500).json(err);
