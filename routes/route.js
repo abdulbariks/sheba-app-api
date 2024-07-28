@@ -5,6 +5,12 @@ const {
   deleteCategory,
 } = require("../controllers/categoryController");
 const {
+  getServices,
+  serviceCreate,
+  updateService,
+  deleteService,
+} = require("../controllers/serviceController");
+const {
   slotCreate,
   getSlots,
   updateSlot,
@@ -29,5 +35,11 @@ router.get("/slots", getSlots);
 router.post("/slot", slotCreate);
 router.patch("/slot/:id", updateSlot);
 router.delete("/slot/:id", deleteSlot);
+
+//Service
+router.get("/services", getServices);
+router.post("/service", serviceCreate);
+router.patch("/service/:id", updateService);
+router.delete("/service/:id", deleteService);
 
 module.exports = router;
