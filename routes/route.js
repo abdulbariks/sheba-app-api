@@ -16,13 +16,18 @@ const {
   updateSlot,
   deleteSlot,
 } = require("../controllers/slotController");
-const { userCreate, getUsers } = require("../controllers/userController");
+const {
+  userCreate,
+  getUsers,
+  userLogin,
+} = require("../controllers/userController");
 
 const router = require("express").Router();
 
 //User
-router.get("/getUsers", getUsers);
-router.post("/UserCreate", userCreate);
+router.get("/users", getUsers);
+router.post("/user", userCreate);
+router.post("/login", userLogin);
 
 //Categories
 router.get("/categories", getCategories);
