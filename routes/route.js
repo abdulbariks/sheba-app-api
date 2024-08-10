@@ -20,14 +20,20 @@ const {
   userCreate,
   getUsers,
   userLogin,
+  getSingalUser,
+  updateUser,
+  deleteUser,
 } = require("../controllers/userController");
 
 const router = require("express").Router();
 
 //User
 router.get("/users", getUsers);
+router.get("/user/:id", getSingalUser);
 router.post("/user", userCreate);
 router.post("/login", userLogin);
+router.patch("/user/:id", updateUser);
+router.delete("/user/:id", deleteUser);
 
 //Categories
 router.get("/categories", getCategories);

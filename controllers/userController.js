@@ -1,33 +1,33 @@
 const User = require("../models/userSchema");
 
 const userCreate = async (req, res) => {
-  //   try {
-  //     const user = new User(req.body);
-  //     let result = await user.save();
-
-  //     res.send(result);
-  //   } catch (err) {
-  //     res.status(500).json(err);
-  //   }
-  // };
-  const user = req.body;
-  const isUserExist = await User.findOne({ email: req.body.email });
-  console.log(user);
-  console.log(isUserExist);
-  if (isUserExist) {
-    res.send({
-      status: false,
-      message: "User Already Exist with This Email",
-    });
-  } else {
+  try {
     const user = new User(req.body);
-    const result = await user.save();
-    res.send({
-      status: true,
-      message: "User Created Successfully",
-      result,
-    });
+    let result = await user.save();
+
+    res.send(result);
+  } catch (err) {
+    res.status(500).json(err);
   }
+
+  // const user = req.body;
+  // const isUserExist = await User.findOne({ email: req.body.email });
+  // console.log(user);
+  // console.log(isUserExist);
+  // if (isUserExist) {
+  //   res.send({
+  //     status: false,
+  //     message: "User Already Exist with This Email",
+  //   });
+  // } else {
+  //   const user = new User(req.body);
+  //   const result = await user.save();
+  //   res.send({
+  //     status: true,
+  //     message: "User Created Successfully",
+  //     result,
+  //   });
+  // }
 };
 
 // User Login
@@ -62,4 +62,47 @@ const getUsers = async (req, res) => {
   }
 };
 
-module.exports = { userCreate, getUsers, userLogin };
+const getSingalUser = async (req, res) => {
+  try {
+    let user = await User.findById(req.params.id);
+    res.send({
+      status: true,
+      message: "User Find Successfully",
+      user,
+    });
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
+
+const updateUser = async (req, res) => {
+  try {
+    let result = await User.findByIdAndUpdate(
+      req.params.id,
+      { $set: req.body },
+      { new: true }
+    );
+
+    res.send(result);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
+
+const deleteUser = async (req, res) => {
+  try {
+    const deletedUser = await User.findByIdAndDelete(req.params.id);
+    res.send(deletedUser);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
+
+module.exports = {
+  userCreate,
+  getUsers,
+  userLogin,
+  getSingalUser,
+  updateUser,
+  deleteUser,
+};
