@@ -5,9 +5,12 @@ const categoryCreate = async (req, res) => {
     const category = new Category(req.body);
 
     let result = await category.save();
-    console.log(result);
 
-    res.send(result);
+    res.send({
+      status: true,
+      message: "Category Created Successfully",
+      result,
+    });
   } catch (err) {
     res.status(500).json(err);
   }
@@ -16,7 +19,11 @@ const categoryCreate = async (req, res) => {
 const getCategories = async (req, res) => {
   try {
     let categories = await Category.find();
-    res.send(categories);
+    res.send({
+      status: true,
+      message: "All Categories ",
+      categories,
+    });
   } catch (err) {
     res.status(500).json(err);
   }
@@ -39,7 +46,11 @@ const updateCategory = async (req, res) => {
 const deleteCategory = async (req, res) => {
   try {
     const deletedCategory = await Category.findByIdAndDelete(req.params.id);
-    res.send(deletedCategory);
+    res.send({
+      status: true,
+      message: "Category Deleted Successfully",
+      deletedCategory,
+    });
   } catch (error) {
     res.status(500).json(error);
   }

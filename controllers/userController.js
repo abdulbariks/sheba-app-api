@@ -5,7 +5,11 @@ const userCreate = async (req, res) => {
     const user = new User(req.body);
     let result = await user.save();
 
-    res.send(result);
+    res.send({
+      status: true,
+      message: "User Created Successfully",
+      result,
+    });
   } catch (err) {
     res.status(500).json(err);
   }
@@ -56,7 +60,11 @@ const userLogin = async (req, res) => {
 const getUsers = async (req, res) => {
   try {
     let users = await User.find();
-    res.send(users);
+    res.send({
+      status: true,
+      message: "All User Find Successfully",
+      users,
+    });
   } catch (err) {
     res.status(500).json(err);
   }
@@ -83,7 +91,11 @@ const updateUser = async (req, res) => {
       { new: true }
     );
 
-    res.send(result);
+    res.send({
+      status: true,
+      message: "User Updated Successfully",
+      result,
+    });
   } catch (error) {
     res.status(500).json(error);
   }
@@ -92,7 +104,11 @@ const updateUser = async (req, res) => {
 const deleteUser = async (req, res) => {
   try {
     const deletedUser = await User.findByIdAndDelete(req.params.id);
-    res.send(deletedUser);
+    res.send({
+      status: true,
+      message: "User Deleted Successfully",
+      deletedUser,
+    });
   } catch (error) {
     res.status(500).json(error);
   }

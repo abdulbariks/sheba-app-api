@@ -17,6 +17,13 @@ const {
   deleteSlot,
 } = require("../controllers/slotController");
 const {
+  getSingalStaff,
+  getStaffs,
+  staffCreate,
+  updateStaff,
+  deleteStaff,
+} = require("../controllers/staffController");
+const {
   userCreate,
   getUsers,
   userLogin,
@@ -37,9 +44,9 @@ router.delete("/user/:id", deleteUser);
 
 //Categories
 router.get("/categories", getCategories);
-router.post("/CategoryCreate", categoryCreate);
+router.post("/category", categoryCreate);
 router.patch("/category/:id", updateCategory);
-router.delete("/deletecategory/:id", deleteCategory);
+router.delete("/category/:id", deleteCategory);
 
 //Slot
 router.get("/slots", getSlots);
@@ -52,5 +59,12 @@ router.get("/services", getServices);
 router.post("/service", serviceCreate);
 router.patch("/service/:id", updateService);
 router.delete("/service/:id", deleteService);
+
+//Staff route
+router.get("/staffs", getStaffs);
+router.get("/staff/:id", getSingalStaff);
+router.post("/staff", staffCreate);
+router.patch("/staff/:id", updateStaff);
+router.delete("/staff/:id", deleteStaff);
 
 module.exports = router;
