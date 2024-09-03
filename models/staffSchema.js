@@ -17,6 +17,12 @@ const staffSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  services: [
+    {
+      type: String,
+      required: true,
+    },
+  ],
   details: {
     type: String,
     required: true,

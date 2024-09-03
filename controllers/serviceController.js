@@ -34,6 +34,19 @@ const getServices = async (req, res) => {
   }
 };
 
+const getSingalService = async (req, res) => {
+  try {
+    let service = await Service.findById(req.params.id);
+    res.send({
+      status: true,
+      message: "Service Find Successfully",
+      service,
+    });
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
+
 const updateService = async (req, res) => {
   try {
     let result = await Service.findByIdAndUpdate(
@@ -65,4 +78,10 @@ const deleteService = async (req, res) => {
   }
 };
 
-module.exports = { serviceCreate, getServices, updateService, deleteService };
+module.exports = {
+  serviceCreate,
+  getServices,
+  updateService,
+  deleteService,
+  getSingalService,
+};

@@ -34,6 +34,19 @@ const getSlots = async (req, res) => {
   }
 };
 
+const getSingalSlot = async (req, res) => {
+  try {
+    let slot = await Slot.findById(req.params.id);
+    res.send({
+      status: true,
+      message: "Slot Find Successfully",
+      slot,
+    });
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
+
 const updateSlot = async (req, res) => {
   try {
     let result = await Slot.findByIdAndUpdate(
@@ -65,4 +78,10 @@ const deleteSlot = async (req, res) => {
   }
 };
 
-module.exports = { slotCreate, getSlots, updateSlot, deleteSlot };
+module.exports = {
+  slotCreate,
+  getSlots,
+  updateSlot,
+  deleteSlot,
+  getSingalSlot,
+};

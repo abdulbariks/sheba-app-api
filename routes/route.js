@@ -1,4 +1,11 @@
 const {
+  bookingCreate,
+  getBookings,
+  getSingalBooking,
+  updateBooking,
+  deleteBooking,
+} = require("../controllers/bookingController");
+const {
   categoryCreate,
   getCategories,
   updateCategory,
@@ -9,12 +16,14 @@ const {
   serviceCreate,
   updateService,
   deleteService,
+  getSingalService,
 } = require("../controllers/serviceController");
 const {
   slotCreate,
   getSlots,
   updateSlot,
   deleteSlot,
+  getSingalSlot,
 } = require("../controllers/slotController");
 const {
   getSingalStaff,
@@ -50,12 +59,14 @@ router.delete("/category/:id", deleteCategory);
 
 //Slot
 router.get("/slots", getSlots);
+router.get("/slot/:id", getSingalSlot);
 router.post("/slot", slotCreate);
 router.patch("/slot/:id", updateSlot);
 router.delete("/slot/:id", deleteSlot);
 
 //Service
 router.get("/services", getServices);
+router.get("/service/:id", getSingalService);
 router.post("/service", serviceCreate);
 router.patch("/service/:id", updateService);
 router.delete("/service/:id", deleteService);
@@ -66,5 +77,12 @@ router.get("/staff/:id", getSingalStaff);
 router.post("/staff", staffCreate);
 router.patch("/staff/:id", updateStaff);
 router.delete("/staff/:id", deleteStaff);
+
+//Booking route
+router.get("/bookings", getBookings);
+router.get("/booking/:id", getSingalBooking);
+router.post("/booking", bookingCreate);
+router.patch("/booking/:id", updateBooking);
+router.delete("/booking/:id", deleteBooking);
 
 module.exports = router;
