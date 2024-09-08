@@ -12,6 +12,12 @@ const {
   deleteCategory,
 } = require("../controllers/categoryController");
 const {
+  getPayment,
+  successPyment,
+  cancelPyment,
+  failPyment,
+} = require("../controllers/paymentController");
+const {
   getServices,
   serviceCreate,
   updateService,
@@ -84,5 +90,11 @@ router.get("/booking/:id", getSingalBooking);
 router.post("/booking", bookingCreate);
 router.patch("/booking/:id", updateBooking);
 router.delete("/booking/:id", deleteBooking);
+
+// SSL Payment
+router.get("/pay/:amount/:trx_id", getPayment);
+router.post("/success/:trx_id", successPyment);
+router.post("/fail/:trx_id", failPyment);
+router.post("/cancel/:trx_id", cancelPyment);
 
 module.exports = router;
